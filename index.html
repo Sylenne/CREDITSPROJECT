@@ -5,6 +5,11 @@
   
    
   	   <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+    <meta itemprop="name" content="chelsea fc">
+    <meta itemprop="description" content="made with cables">
+    <meta itemprop="image" content="screenshot.png">
+    <meta name="description" content="made with cables" />
      <title>Credit</title>
      <style type="">
       @font-face{
@@ -90,13 +95,7 @@ a{
 
 canvas {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-  width: 200%;
-  height: auto;
-  /* border: 1px solid #444; */
+
 }
   text-decoration: none;
 }
@@ -106,18 +105,7 @@ body {
   color: #ffff;
 }
 
-canvas {
-  position: fixed;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  z-index: -1;
-  height: auto;
-  opacity: 0.9;
-  width: 100% !important; 
-  height: 200% !important;
-  /* border: 1px solid #444; */
-}
+
 </style>
  <style>
       .container {
@@ -132,6 +120,7 @@ canvas {
     <script src="jquery-3.5.1.min.js"></script>
 </head>
 <body class="container">
+   <canvas style="position: fixed; z-index: -1; right: 0; left: 0; bottom: 0; top: 0;" id="glcanvas" width="100vw" height="100vh" tabindex="1"></canvas>
   
  
     <div class="divpics" style="align-items: center; justify-content: center; display: flex; margin-top: 7%; ">
@@ -285,6 +274,31 @@ canvas {
 
   </div>
 
+     <libs/>
+    <script type="text/javascript" src="js/patch.js" async></script>
+    <corelibs/>
+
+    <script>
+
+        function patchInitialized(patch) {
+            // You can now access the patch object (patch), register variable watchers and so on
+        }
+
+        function patchFinishedLoading(patch) {
+            // The patch is ready now, all assets have been loaded
+        }
+
+        document.addEventListener('CABLES.jsLoaded', function (event) {
+            CABLES.patch = new CABLES.Patch({
+                patch: CABLES.exportedPatch,
+                prefixAssetPath: '',
+                glCanvasId: 'glcanvas',
+                glCanvasResizeToWindow: true,
+                onPatchLoaded: patchInitialized,
+                onFinishedLoading: patchFinishedLoading,
+            });
+        });
+    </script>
     <script>
       $(document).ready(function() {
     // Let's simulate some loading time.
@@ -297,3 +311,4 @@ canvas {
 
 
   </body>
+</html>
